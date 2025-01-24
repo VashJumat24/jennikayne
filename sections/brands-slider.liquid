@@ -1,16 +1,16 @@
 {% comment %}
   Brand Carousel Section
-  Allows configuration for the number of items displayed on desktop, tablet, and mobile.
+  Allows configuring the number of items shown for different screen sizes and sets up a carousel that loops and auto-plays.
 {% endcomment %}
 
 <div class="brand-carousel">
   {% if section.blocks.size > 0 %}
     <div class="carousel-wrapper">
-      <div class="carousel-track">
+      <div class="carousel-container">
         {% for block in section.blocks %}
           <div class="carousel-item" data-collection="{{ block.settings.brand_collection | handleize }}">
             <a href="/collections/{{ block.settings.brand_collection | handleize }}" class="brand-link" aria-label="Shop by {{ block.settings.brand_collection }}">
-              <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_collection }}" height="{{ block.settings.brand_image.height }}" width="100%">
+              <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_collection }}">
               <div class="brand-overlay">
                 <span>{{ block.settings.brand_collection }}</span>
               </div>
@@ -20,67 +20,62 @@
       </div>
     </div>
   {% else %}
-    <p>No brands to show.</p>
+    <p>No brands to display.</p>
   {% endif %}
 </div>
 
-{{ 'brand-carousel.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
-
 {% comment %}
-  Custom JavaScript for controlling slider items per view based on screen size and autoplay functionality.
+  JavaScript for autoplay, loop, and controlling the number of items displayed based on screen size
 {% endcomment %}
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const carouselTrack = document.querySelector('.carousel-track');
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    let currentIndex = 0;
-
+    const carouselContainer = document.querySelector('.carousel-container');
+    const items = document.querySelectorAll('.carousel-item');
+    const itemCount = items.length;
+    
     // Get the range values from settings
     const desktopItems = {{ section.settings.desktop_items }};
     const tabletItems = {{ section.settings.tablet_items }};
     const mobileItems = {{ section.settings.mobile_items }};
-    const autoplayDelay = {{ section.settings.autoplay_delay }}; // Delay in milliseconds
-
+    
     // Function to update the number of items displayed based on screen size
     function updateCarouselDisplay() {
       const screenWidth = window.innerWidth;
 
-      // Decide how many items to show based on the screen width
       let itemsToShow = desktopItems;
-
       if (screenWidth <= 1024 && screenWidth > 768) {
         itemsToShow = tabletItems;
       } else if (screenWidth <= 768) {
         itemsToShow = mobileItems;
       }
 
-      // Adjust the carousel display based on the number of items to show
-      const itemWidth = 100 / itemsToShow; // Calculate width based on number of items
-      carouselItems.forEach(item => {
-        item.style.width = `${itemWidth}%`; // Update width of each carousel item
+      // Calculate item width based on the number of items to show
+      const itemWidth = 100 / itemsToShow;
+      items.forEach(item => {
+        item.style.width = itemWidth + '%';
       });
 
-      // Automatically adjust the carousel track width
-      carouselTrack.style.width = `${itemWidth * carouselItems.length}%`;
+      // Update carousel wrapper width to accommodate all items
+      carouselContainer.style.width = itemWidth * itemCount + '%';
     }
 
-    // Function to move the carousel to the next item (autoplay)
-    function moveToNextItem() {
-      currentIndex = (currentIndex + 1) % carouselItems.length;
-      updateCarouselPosition();
+    // Autoplay and looping functionality
+    let currentIndex = 0;
+    const autoplayInterval = 3000; // 3 seconds for autoplay
+
+    function startAutoplay() {
+      setInterval(function() {
+        currentIndex++;
+        if (currentIndex >= itemCount) {
+          currentIndex = 0; // Loop back to the start
+        }
+        carouselContainer.style.transform = `translateX(-${(100 / items.length) * currentIndex}%)`;
+      }, autoplayInterval);
     }
 
-    // Function to update the carousel position
-    function updateCarouselPosition() {
-      const offset = -100 * currentIndex; // Shift the carousel track
-      carouselTrack.style.transform = `translateX(${offset}%)`;
-    }
-
-    // Initialize display on page load
+    // Initialize the carousel display and start autoplay
     updateCarouselDisplay();
-
-    // Start autoplay
-    setInterval(moveToNextItem, autoplayDelay);
+    startAutoplay();
 
     // Update display when window is resized
     window.addEventListener('resize', updateCarouselDisplay);
@@ -117,15 +112,6 @@
       "max": 10,
       "step": 1,
       "default": 2
-    },
-    {
-      "type": "range",
-      "id": "autoplay_delay",
-      "label": "Autoplay Delay (ms)",
-      "min": 1000,
-      "max": 5000,
-      "step": 500,
-      "default": 3000
     }
   ],
   "blocks": [
