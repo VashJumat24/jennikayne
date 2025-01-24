@@ -225,8 +225,11 @@ class BrandCarousel extends HTMLElement {
         productItem.classList.add('product-item');
         console.log(product);
 
+        /// Get the price from the first variant, if available
+        const firstVariantPrice = product.variants && product.variants[0] ? product.variants[0].price : 0;
+
         // Ensure the price is a valid number and convert from cents to dollars
-        const priceInDollars = (product.price / 100).toFixed(2);
+        const priceInDollars = (firstVariantPrice / 100).toFixed(2);
         
         // Use featured_image if available, else fallback to the first image in the product.images array
         const imageSrc = product.featured_image ? product.featured_image.src : (product.images && product.images[0] ? product.images[0].src : 'default-image.jpg');
