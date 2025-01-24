@@ -18,14 +18,14 @@
   display: flex;
   transition: transform 0.5s ease-in-out; /* Smooth transition for sliding */
   width: 100%;
-  gap:1.25rem;
+  gap:1.5rem;
 }
 
 /* Individual carousel items */
 .carousel-item {
   position: relative;
   flex: 0 0 auto; /* Prevent the items from growing/shrinking */
-  width: 24%; /* Full width per item */
+  width: 25%; /* Full width per item */
   box-sizing: border-box;
 }
 
