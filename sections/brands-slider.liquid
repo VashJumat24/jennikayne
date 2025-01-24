@@ -20,7 +20,10 @@
     <p>No brands to display.</p>
   {% endif %}
 </div>
+
   {{ 'brand-carousel.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  <script src="{{ 'brand-carousel.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+
 {% comment %}
   Custom JavaScript for the Brand Carousel functionality.
 {% endcomment %}
