@@ -9,7 +9,7 @@
         {% for block in section.blocks %}
           <carousel-item 
             data-image="{{ block.settings.brand_image | img_url: 'medium' }}" 
-            data-name="{{ block.settings.brand_collection }}">
+            data-name="{{ block.settings.brand_name }}">
           </carousel-item>
         {% endfor %}
       </brand-carousel>
