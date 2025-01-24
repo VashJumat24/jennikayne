@@ -15,50 +15,43 @@
         "brand_7m8cUq": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/e7a2b189514d134630552681e4c8bc07.jpg",
-            "brand_collection": "Puma"
+            "brand_collection": "puma"
           }
         },
         "brand_iYYgA8": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/44694ee386818f3276566210464cf341.jpg",
-            "brand_collection": "Adidas"
+            "brand_collection": "adidas"
           }
         },
         "brand_C8FLc6": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/0ea90fb43c087d165cbf985098cc951e.jpg",
-            "brand_collection": "Nike"
+            "brand_collection": "nike"
           }
         },
         "brand_8YXEWB": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/23550440c4ccab05e4fc1ebd85e742cc.jpg",
-            "brand_collection": "Converse"
+            "brand_collection": "asics-tiger"
           }
         },
         "brand_eby948": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/633e8800dbc6dc5704b35fd027e4eeaa.jpg",
-            "brand_collection": "Dr Martens"
+            "brand_collection": "dr-martens"
           }
         },
         "brand_UCGfVL": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/d841f71ea6845bf6005453e15a18c632.jpg",
-            "brand_collection": "Vans"
+            "brand_collection": "vans"
           }
         },
         "brand_GU8cRN": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/9f190cba7218c819c81566bca6298c6a.jpg",
-            "brand_collection": "Converse"
+            "brand_collection": "converse"
           }
         }
       },
@@ -72,10 +65,9 @@
         "brand_GU8cRN"
       ],
       "settings": {
-        "desktop_items": 4,
-        "tablet_items": 3,
-        "mobile_items": 2,
-        "autoplay_delay": 3000
+        "items_display_desktop": 4,
+        "items_display_tablet": 3,
+        "items_display_mobile": 2
       }
     },
     "product_grid": {
