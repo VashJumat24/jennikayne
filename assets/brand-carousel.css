@@ -1,3 +1,9 @@
+/* Carousel Container */
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* Smooth transition */
+  width: 100%;
+}
 /* Brand Carousel Styles */
 .brand-carousel {
   position: relative;
