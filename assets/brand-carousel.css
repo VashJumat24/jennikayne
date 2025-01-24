@@ -18,7 +18,7 @@
   display: flex;
   transition: transform 0.5s ease-in-out; /* Smooth transition for sliding */
   width: 100%;
-  gap:2rem;
+  gap:1.25rem;
 }
 
 /* Individual carousel items */
@@ -27,7 +27,6 @@
   flex: 0 0 auto; /* Prevent the items from growing/shrinking */
   width: 24%; /* Full width per item */
   box-sizing: border-box;
-  margin: 0 10px; /* Space between items */
 }
 
 /* Styles for the brand image */
