@@ -16,49 +16,56 @@
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/e7a2b189514d134630552681e4c8bc07.jpg",
-            "brand_collection": "puma"
+            "collection_brand": "puma",
+            "brand_name": "Puma"
           }
         },
         "brand_iYYgA8": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/44694ee386818f3276566210464cf341.jpg",
-            "brand_collection": "adidas"
+            "collection_brand": "adidas",
+            "brand_name": "Adidas"
           }
         },
         "brand_C8FLc6": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/0ea90fb43c087d165cbf985098cc951e.jpg",
-            "brand_collection": "nike"
+            "collection_brand": "nike",
+            "brand_name": "Nike"
           }
         },
         "brand_8YXEWB": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/343bfbfc1a10a39a528a3d34367669c2.jpg",
-            "brand_collection": "Asics Tiger"
+            "collection_brand": "",
+            "brand_name": "Default Brand"
           }
         },
         "brand_eby948": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/633e8800dbc6dc5704b35fd027e4eeaa.jpg",
-            "brand_collection": "dr-martens"
+            "collection_brand": "",
+            "brand_name": "Default Brand"
           }
         },
         "brand_UCGfVL": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/9f190cba7218c819c81566bca6298c6a.jpg",
-            "brand_collection": "vans"
+            "collection_brand": "",
+            "brand_name": "Default Brand"
           }
         },
         "brand_GU8cRN": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/fae150570c8ce6ddc4f787bf77b02c95.jpg",
-            "brand_collection": "converse"
+            "collection_brand": "",
+            "brand_name": "Default Brand"
           }
         }
       },
