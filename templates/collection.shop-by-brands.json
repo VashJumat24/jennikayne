@@ -50,14 +50,8 @@
         "brand_UCGfVL": {
           "type": "brand",
           "settings": {
-            "brand_collection": "Default Brand"
-          }
-        },
-        "brand_y4Rmjx": {
-          "type": "brand",
-          "settings": {
-            "brand_image": "shopify://shop_images/c1a864cb74de0e0fd0004872d6a00edd.jpg",
-            "brand_collection": "CONVERSE"
+            "brand_image": "shopify://shop_images/d841f71ea6845bf6005453e15a18c632.jpg",
+            "brand_collection": "Vans"
           }
         },
         "brand_GU8cRN": {
@@ -65,13 +59,6 @@
           "settings": {
             "brand_image": "shopify://shop_images/9f190cba7218c819c81566bca6298c6a.jpg",
             "brand_collection": "Converse"
-          }
-        },
-        "brand_rdcPeY": {
-          "type": "brand",
-          "settings": {
-            "brand_image": "shopify://shop_images/8072c8b5718306d4be25aac21836ce16.jpg",
-            "brand_collection": "Adidas"
           }
         }
       },
@@ -82,9 +69,7 @@
         "brand_8YXEWB",
         "brand_eby948",
         "brand_UCGfVL",
-        "brand_y4Rmjx",
-        "brand_GU8cRN",
-        "brand_rdcPeY"
+        "brand_GU8cRN"
       ],
       "settings": {
         "desktop_items": 4,
