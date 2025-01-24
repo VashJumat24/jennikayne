@@ -225,6 +225,9 @@ class BrandCarousel extends HTMLElement {
         productItem.classList.add('product-item');
         console.log(product);
 
+        // Ensure the price is a valid number and convert from cents to dollars
+        const priceInDollars = (product.price / 100).toFixed(2);
+        
         // Use featured_image if available, else fallback to the first image in the product.images array
         const imageSrc = product.featured_image ? product.featured_image.src : (product.images && product.images[0] ? product.images[0].src : 'default-image.jpg');
   
@@ -232,7 +235,7 @@ class BrandCarousel extends HTMLElement {
           <a href="/products/${product.handle}">
             <img src="${imageSrc}" alt="${product.title}" />
             <p class="product-title">${product.title}</p>
-            <p class="product-price">${(product.price / 100).toFixed(2)} USD</p>
+            <p class="product-price">${priceInDollars} USD</p>
           </a>
         `;
         this.productsContainer.appendChild(productItem);
