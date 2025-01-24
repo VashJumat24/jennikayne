@@ -1,15 +1,34 @@
+{% comment %}
+  Brand Carousel Section with Range Input to control the display and autoplay functionality.
+{% endcomment %}
+
+<div class="brand-carousel">
+  {% if section.blocks.size > 0 %}
+    <div class="carousel-wrapper">
+      <brand-carousel>
+        {% for block in section.blocks %}
+          <carousel-item 
+            data-image="{{ block.settings.brand_image | img_url: 'medium' }}" 
+            data-name="{{ block.settings.brand_name }}">
+          </carousel-item>
+        {% endfor %}
+      </brand-carousel>
+    </div>
+  {% else %}
+    <p>No brands to display.</p>
+  {% endif %}
+</div>
+
+  <script src="{{ 'brand-carousel.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+
 {% schema %}
 {
   "name": "Brand Carousel",
   "settings": [
     {
-      "type": "header",
-      "content": "Brand Carousel Settings"
-    },
-    {
       "type": "range",
-      "id": "items_display_desktop",
-      "label": "Items per Row on Desktop",
+      "id": "desktop_items",
+      "label": "Items on Desktop",
       "min": 1,
       "max": 10,
       "step": 1,
@@ -17,8 +36,8 @@
     },
     {
       "type": "range",
-      "id": "items_display_tablet",
-      "label": "Items per Row on Tablet",
+      "id": "tablet_items",
+      "label": "Items on Tablet",
       "min": 1,
       "max": 10,
       "step": 1,
@@ -26,8 +45,8 @@
     },
     {
       "type": "range",
-      "id": "items_display_mobile",
-      "label": "Items per Row on Mobile",
+      "id": "mobile_items",
+      "label": "Items on Mobile",
       "min": 1,
       "max": 10,
       "step": 1,
@@ -40,184 +59,34 @@
       "name": "Brand",
       "settings": [
         {
-          "type": "collection",
+          "type": "image_picker",
+          "id": "brand_image",
+          "label": "Brand Image"
+        },
+        {
+          "type": "text",
           "id": "brand_collection",
-          "label": "Choose a Collection for the Brand"
+          "label": "Brand Collection Name",
+          "default": "Default Brand"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Brand Carousel"
+      "name": "Brand Carousel",
+      "blocks": [
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        }
+      ]
     }
   ]
 }
 {% endschema %}
-
-{% stylesheet %}
-<style>
-  .carousel-container {
-    display: flex;
-    overflow: hidden;
-    width: 100%;
-  }
-  .carousel-wrapper {
-    display: flex;
-    transition: transform 0.3s ease;
-  }
-  .carousel-item {
-    flex: 0 0 auto;
-    width: 25%; /* Default for desktop (4 items per row) */
-    text-align: center;
-    cursor: pointer;
-  }
-  .carousel-item img {
-    width: 100%;
-    height: auto;
-  }
-  .product-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-top: 30px;
-  }
-  .product-item img {
-    width: 100%;
-    height: auto;
-  }
-</style>
-{% endstylesheet %}
-
-<div id="brand-carousel-section">
-  <div class="carousel-container">
-    <div class="carousel-wrapper">
-      <!-- Carousel items will be inserted here -->
-    </div>
-  </div>
-
-  <div class="product-list">
-    <!-- Products will be inserted here after fetching -->
-  </div>
-</div>
-
-<script>
-  class BrandCarousel extends HTMLElement {
-    constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
-
-      // Clone the template content and append it to the shadow DOM
-      const template = document.getElementById('brand-carousel-template');
-      this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-      this.carouselWrapper = this.shadowRoot.querySelector('.carousel-wrapper');
-      this.productListContainer = this.shadowRoot.querySelector('.product-list');
-
-      this.brands = [];
-    }
-
-    connectedCallback() {
-      // Initialize the carousel and load the brand data
-      this.loadBrands();
-    }
-
-    // Load brand data from Liquid blocks
-    loadBrands() {
-      // Assuming we have block settings from the Liquid schema
-      let brand = {};
-      {% for block in section.blocks %}
-        brand = {
-          name: '{{ collections[block.settings.brand_collection].title }}',
-          image: "{{ block.settings.brand_collection.image | image_url: 'medium' }}",
-          handle: "{{ block.settings.brand_collection.handle }}"
-        };
-
-        this.brands.push(brand);
-      {% endfor %}
-
-      // Add brands to the carousel
-      this.brands.forEach(brand => {
-        const brandElement = document.createElement('div');
-        brandElement.classList.add('carousel-item');
-        brandElement.setAttribute('data-brand-handle', brand.handle);
-        brandElement.innerHTML = `
-          <img src="${brand.image}" alt="${brand.name}" />
-          <p>${brand.name}</p>
-        `;
-        brandElement.addEventListener('click', () => this.updateProductListing(brand.handle));
-        this.carouselWrapper.appendChild(brandElement);
-      });
-
-      // Adjust carousel item width based on screen size
-      this.adjustCarouselLayout();
-      window.addEventListener('resize', this.adjustCarouselLayout.bind(this));
-    }
-
-    // Adjust carousel layout for different screen sizes
-    adjustCarouselLayout() {
-      const width = window.innerWidth;
-      const itemsDesktop = this.getAttribute('items_display_desktop') || 4;
-      const itemsTablet = this.getAttribute('items_display_tablet') || 3;
-      const itemsMobile = this.getAttribute('items_display_mobile') || 2;
-
-      if (width >= 1024) {
-        this.setCarouselItemWidth((100 / itemsDesktop) + '%'); // Adjust based on setting
-      } else if (width >= 768) {
-        this.setCarouselItemWidth((100 / itemsTablet) + '%'); // Adjust based on setting
-      } else {
-        this.setCarouselItemWidth((100 / itemsMobile) + '%'); // Adjust based on setting
-      }
-    }
-
-    // Set the width of carousel items dynamically
-    setCarouselItemWidth(width) {
-      const items = this.shadowRoot.querySelectorAll('.carousel-item');
-      items.forEach(item => {
-        item.style.width = width;
-      });
-    }
-
-    // Fetch and display products for the selected brand
-    updateProductListing(brandHandle) {
-      this.productListContainer.innerHTML = '<p>Loading products...</p>';
-
-      fetch(`/collections/${brandHandle}/products.json`)
-        .then(response => response.json())
-        .then(data => {
-          const products = data.products;
-          this.displayProducts(products);
-        })
-        .catch(error => {
-          console.error('Error fetching products:', error);
-          this.productListContainer.innerHTML = '<p>Sorry, there was an error loading the products.</p>';
-        });
-    }
-
-    // Display fetched products in the product list
-    displayProducts(products) {
-      this.productListContainer.innerHTML = ''; // Clear the loading message
-
-      if (products.length > 0) {
-        products.forEach(product => {
-          const productItem = document.createElement('div');
-          productItem.classList.add('product-item');
-
-          productItem.innerHTML = `
-            <a href="/products/${product.handle}">
-              <img src="${product.featured_image.src}" alt="${product.title}" />
-              <p class="product-title">${product.title}</p>
-              <p class="product-price">${(product.price / 100).toFixed(2)} USD</p>
-            </a>
-          `;
-          this.productListContainer.appendChild(productItem);
-        });
-      } else {
-        this.productListContainer.innerHTML = '<p>No products found for this brand.</p>';
-      }
-    }
-  }
-
-  // Define the custom element
-  customElements.define('brand-carousel', BrandCarousel);
-</script>
