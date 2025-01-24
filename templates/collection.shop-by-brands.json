@@ -64,8 +64,8 @@
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/fae150570c8ce6ddc4f787bf77b02c95.jpg",
-            "collection_brand": "",
-            "brand_name": "Default Brand"
+            "collection_brand": "converse",
+            "brand_name": "Converse"
           }
         }
       },
