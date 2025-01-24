@@ -1,23 +1,28 @@
 {% comment %}
-  Brands Slider Section
+  Brands Slider Section with Swiper
 {% endcomment %}
 
-<section class="brands-slider">
-    {% if section.blocks.size > 0 %}
-      <div class="brands-slider-wrapper">
+<div class="brands-slider">
+  {% if section.blocks.size > 0 %}
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
         {% for block in section.blocks %}
-          <div class="brand-item" data-brand="{{ block.settings.brand_name }}">
-            <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_name }}" width="{{ block.settings.brand_image.width }}" height="{{ block.settings.brand_image.height }}">
-            <div class="brand-overlay">
-              <span>{{ block.settings.brand_name }}</span>
-            </div>
+          <div class="swiper-slide">
+            <a href="/collections/{{ block.settings.brand_collection | handleize }}" aria-label="{{ block.settings.brand_collection }}">
+              <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_collection }}">
+              <div class="brand-overlay">
+                <span>{{ block.settings.brand_collection }}</span>
+              </div>
+            </a>
           </div>
         {% endfor %}
       </div>
-    {% else %}
-      <p>No brands to show.</p>
-    {% endif %}
-</section>
+    </div>
+  {% else %}
+    <p>No brands to show.</p>
+  {% endif %}
+</div>
+
 {% schema %}
 {
   "name": "Brands Slider",
@@ -25,26 +30,29 @@
     {
       "type": "range",
       "id": "desktop_items",
-      "label": "Items to display on desktop",
-      "default": 4,
+      "label": "Items on Desktop",
       "min": 1,
-      "max": 6
+      "max": 10,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "range",
       "id": "tablet_items",
-      "label": "Items to display on tablet",
-      "default": 3,
+      "label": "Items on Tablet",
       "min": 1,
-      "max": 6
+      "max": 10,
+      "step": 1,
+      "default": 3
     },
     {
       "type": "range",
       "id": "mobile_items",
-      "label": "Items to display on mobile",
-      "default": 2,
+      "label": "Items on Mobile",
       "min": 1,
-      "max": 6
+      "max": 10,
+      "step": 1,
+      "default": 2
     }
   ],
   "blocks": [
@@ -59,8 +67,9 @@
         },
         {
           "type": "text",
-          "id": "brand_name",
-          "label": "Brand Name"
+          "id": "brand_collection",
+          "label": "Brand Collection Name",
+          "default": "Default Brand"
         }
       ]
     }
@@ -68,7 +77,21 @@
   "presets": [
     {
       "name": "Brands Slider",
-      "category": "Custom"
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        }
+      ]
     }
   ]
 }
@@ -76,60 +99,18 @@
 
 
 {% style %}
-  .brands-slider {
-    margin-bottom: 20px;
-  }
-
-  .slider-container {
-    display: flex;
-    overflow-x: scroll;
-    scroll-snap-type: x mandatory;
-    gap: 15px;
-  }
-
-  .brand-item {
-    flex: 0 0 calc(100% / {{ section.settings.desktop_items }} - 10px);
-    position: relative;
-    text-align: center;
-    cursor: pointer;
-    scroll-snap-align: center;
-  }
-
-  .brand-item img {
-    width: 100%;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-  }
-
-  .brand-item:hover img {
-    transform: scale(1.1);
-  }
-
-  .brand-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-  }
-
-  @media (max-width: 768px) {
-    .brand-item {
-      flex: 0 0 calc(100% / {{ section.settings.tablet_items }} - 10px);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .brand-item {
-      flex: 0 0 calc(100% / {{ section.settings.mobile_items }} - 10px);
-    }
+  .swiper {
+    width: 600px;
+    height: 300px;
   }
 {% endstyle %}
 
-{% javascript %}
+{% comment %}
+  Initialize Swiper with responsive settings based on input range
+{% endcomment %}
+
+<script type="module">
+   import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs'
 
    document.addEventListener('DOMContentLoaded', () => {
 
@@ -137,40 +118,26 @@
         const collectionTitle = document.querySelector('.collection-title');
         const productGrid = document.querySelector('.product-grid');
 
-        //Slider Variable
-        const sliderContainer = document.querySelector('.slider-container');
-        const brandItems = document.querySelectorAll('.brand-item');
-        const prevButton = document.createElement('button');
-        const nextButton = document.createElement('button');
-
-        // Add navigation buttons
-        prevButton.classList.add('slider-nav', 'prev');
-        prevButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>`;
-        nextButton.classList.add('slider-nav', 'next');
-        nextButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>`;
-
-        sliderContainer.parentElement.appendChild(prevButton);
-        sliderContainer.parentElement.appendChild(nextButton);
-
-        let scrollAmount = 0;
-        const slideWidth = brandItems[0].offsetWidth + 10; // Item width + margin
-        const containerWidth = sliderContainer.offsetWidth;
-
-        // Update scroll for responsiveness
-        const updateScrollWidth = () => {
-            scrollAmount = 0;
-            sliderContainer.scrollLeft = 0;
-        };
-
-        window.addEventListener('resize', updateScrollWidth);
-
-        // Scroll functionality
-        prevButton.addEventListener('click', () => {
-            sliderContainer.scrollBy({ left: -slideWidth, behavior: 'smooth' });
-        });
-
-        nextButton.addEventListener('click', () => {
-            sliderContainer.scrollBy({ left: slideWidth, behavior: 'smooth' });
+        const swiper = new Swiper('.swiper-container', {
+          slidesPerView: '{{ section.settings.desktop_items }}',
+          spaceBetween: 10,
+          breakpoints: {
+            1024: {
+              slidesPerView: '{{ section.settings.tablet_items }}',
+            },
+            768: {
+              slidesPerView: '{{ section.settings.mobile_items }}',
+            }
+          },
+          loop: true,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          }
         });
 
         brandItems.forEach(item => {
@@ -195,4 +162,4 @@
          });
 
     });
-{% endjavascript %}
+</script>
