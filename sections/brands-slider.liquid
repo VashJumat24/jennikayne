@@ -5,7 +5,11 @@
 <div class="brand-carousel">
   {% if section.blocks.size > 0 %}
     <div class="carousel-wrapper">
-      <brand-carousel >
+      <brand-carousel 
+         data-desktop-items="{{ section.settings.desktop_items }}"
+         data-tablet-items="{{ section.settings.tablet_items }}"
+         data-mobile-items="{{ section.settings.mobile_items }}"
+        >
         {% for block in section.blocks %}
           
           <carousel-item 
