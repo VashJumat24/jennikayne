@@ -8,6 +8,7 @@ class BrandCarousel extends HTMLElement {
     this.tabletItems = 3;   // Default items for tablet
     this.mobileItems = 2;   // Default items for mobile
     this.totalItems = 0;
+    this.productsContainer = null; // To hold the products container
   }
 
   connectedCallback() {
@@ -62,6 +63,18 @@ class BrandCarousel extends HTMLElement {
             width: 50%;
           }
         }
+
+        /* Product list styles */
+        .product-list {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+          margin-top: 30px;
+        }
+        .product-item img {
+          width: 100%;
+          height: auto;
+        }
       </style>
 
       <div class="carousel-wrapper">
@@ -71,6 +84,10 @@ class BrandCarousel extends HTMLElement {
       </div>
       <button class="carousel-prev">&#10094;</button>
       <button class="carousel-next">&#10095;</button>
+      
+      <div class="product-list">
+        <!-- Products will be dynamically added here -->
+      </div>
     `;
   }
 
@@ -79,6 +96,7 @@ class BrandCarousel extends HTMLElement {
     this.carouselContainer = this.shadowRoot.querySelector('.carousel-container');
     this.carouselPrevButton = this.shadowRoot.querySelector('.carousel-prev');
     this.carouselNextButton = this.shadowRoot.querySelector('.carousel-next');
+    this.productsContainer = this.shadowRoot.querySelector('.product-list');
 
     this.addCarouselItems(); // Add carousel items dynamically
     this.totalItems = this.carouselContainer.children.length;
@@ -93,10 +111,12 @@ class BrandCarousel extends HTMLElement {
     blocks.forEach(block => {
       const item = document.createElement('div');
       item.classList.add('carousel-item');
+      item.dataset.handle = block.dataset.handle; // Storing the handle of the brand in the dataset
       item.innerHTML = `
         <img src="${block.dataset.image}" alt="${block.dataset.name}">
         <div class="brand-overlay">${block.dataset.name}</div>
       `;
+      item.addEventListener('click', () => this.fetchAndDisplayProducts(item.dataset.handle));
       this.carouselContainer.appendChild(item);
     });
 
@@ -156,6 +176,44 @@ class BrandCarousel extends HTMLElement {
   addEventListeners() {
     this.carouselPrevButton.addEventListener('click', () => this.goToPrevItem());
     this.carouselNextButton.addEventListener('click', () => this.goToNextItem());
+  }
+
+  // Fetch products for the selected brand
+  fetchAndDisplayProducts(brandHandle) {
+    this.productsContainer.innerHTML = '<p>Loading products...</p>'; // Show loading text
+
+    fetch(`/collections/${brandHandle}/products.json`)
+      .then(response => response.json())
+      .then(data => {
+        const products = data.products;
+        this.displayProducts(products);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+        this.productsContainer.innerHTML = '<p>Sorry, there was an error loading the products.</p>';
+      });
+  }
+
+  // Display products in the product list
+  displayProducts(products) {
+    this.productsContainer.innerHTML = ''; // Clear the loading message
+
+    if (products.length > 0) {
+      products.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+        productItem.innerHTML = `
+          <a href="/products/${product.handle}">
+            <img src="${product.featured_image.src}" alt="${product.title}" />
+            <p class="product-title">${product.title}</p>
+            <p class="product-price">${(product.price / 100).toFixed(2)} USD</p>
+          </a>
+        `;
+        this.productsContainer.appendChild(productItem);
+      });
+    } else {
+      this.productsContainer.innerHTML = '<p>No products found for this brand.</p>';
+    }
   }
 }
 
