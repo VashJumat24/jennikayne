@@ -20,7 +20,7 @@ class BrandCarousel extends HTMLElement {
   }
 
   render() {
-
+    const dItemsCount = 100 / parseInt(this.desktopItems)
     this.shadowRoot.innerHTML = `
       <style>
         /* Carousel Styles */
@@ -35,7 +35,7 @@ class BrandCarousel extends HTMLElement {
         }
         .carousel-item {
           flex: 0 0 auto;
-          width: 25%;
+          width: ${dItemsCount}%;
           position: relative;
         }
         .carousel-item img {
