@@ -1,16 +1,3 @@
-<section class="brands-slider">
-  <div class="slider-container">
-    {% for brand in section.settings.brands %}
-      <div class="brand-item" data-brand="{{ brand.brand_name }}">
-        <img src="{{ brand.brand_image | file_url }}" alt="{{ brand.brand_name }}">
-        <div class="brand-overlay">
-          <span>{{ brand.brand_name }}</span>
-        </div>
-      </div>
-    {% endfor %}
-</div>
-
-
 {% comment %}
   Brands Slider Section
 {% endcomment %}
@@ -20,7 +7,7 @@
       <div class="brands-slider-wrapper">
         {% for block in section.blocks %}
           <div class="brand-item" data-brand="{{ block.settings.brand_name }}">
-            <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_name }}">
+            <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_name }}" width="{{ block.settings.brand_image.width }}" height="{{ block.settings.brand_image.height }}">
             <div class="brand-overlay">
               <span>{{ block.settings.brand_name }}</span>
             </div>
