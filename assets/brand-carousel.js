@@ -204,7 +204,7 @@ class BrandCarousel extends HTMLElement {
       products.forEach(product => {
         const productItem = document.createElement('div');
         productItem.classList.add('product-item');
-  
+        console.log(product);
         // Check if the product has a featured image
         const imageUrl = product.featured_image ? product.featured_image.src : 'path/to/default-image.jpg'; // Default image if none
   
