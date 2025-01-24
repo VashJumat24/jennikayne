@@ -31,44 +31,39 @@
 {% endcomment %}
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const carouselTrack = document.querySelector('.carousel-track');
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    let currentIndex = 0;
-
+    const carouselContainer = document.querySelector('.carousel-container');
+    const items = document.querySelectorAll('.carousel-item');
+    const itemCount = items.length;
+    
     // Get the range values from settings
     const desktopItems = {{ section.settings.desktop_items }};
     const tabletItems = {{ section.settings.tablet_items }};
     const mobileItems = {{ section.settings.mobile_items }};
-    const autoplayDelay = {{ section.settings.autoplay_delay }}; // Delay in milliseconds
-
+    
     // Function to update the number of items displayed based on screen size
     function updateCarouselDisplay() {
       const screenWidth = window.innerWidth;
 
-      // Decide how many items to show based on the screen width
       let itemsToShow = desktopItems;
-
       if (screenWidth <= 1024 && screenWidth > 768) {
         itemsToShow = tabletItems;
       } else if (screenWidth <= 768) {
         itemsToShow = mobileItems;
       }
 
-      // Adjust the carousel display based on the number of items to show
-      const itemWidth = 100 / itemsToShow; // Calculate width based on number of items
-      carouselItems.forEach(item => {
-        item.style.width = `${itemWidth}%`; // Update width of each carousel item
+      // Calculate item width based on the number of items to show
+      const itemWidth = 100 / itemsToShow;
+      items.forEach(item => {
+        item.style.width = itemWidth + '%';
       });
 
-      // Automatically adjust the carousel track width
-      carouselTrack.style.width = `${itemWidth * carouselItems.length}%`;
+      // Update carousel wrapper width to accommodate all items
+      carouselContainer.style.width = itemWidth * itemCount + '%';
     }
 
-    // Function to move the carousel to the next item (autoplay)
-    function moveToNextItem() {
-      currentIndex = (currentIndex + 1) % carouselItems.length;
-      updateCarouselPosition();
-    }
+    // Autoplay and looping functionality
+    let currentIndex = 0;
+    const autoplayInterval = 3000; // 3 seconds for autoplay
 
     function startAutoplay() {
       setInterval(function() {
@@ -80,18 +75,9 @@
       }, autoplayInterval);
     }
 
-    // Function to update the carousel position
-    function updateCarouselPosition() {
-      const offset = -100 * currentIndex; // Shift the carousel track
-      carouselTrack.style.transform = `translateX(${offset}%)`;
-    }
-
-    // Initialize display on page load
+    // Initialize the carousel display and start autoplay
     updateCarouselDisplay();
     startAutoplay();
-
-    // Start autoplay
-    setInterval(moveToNextItem, autoplayDelay);
 
     // Update display when window is resized
     window.addEventListener('resize', updateCarouselDisplay);
