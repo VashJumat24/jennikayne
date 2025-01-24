@@ -69,7 +69,7 @@ class BrandCarousel extends HTMLElement {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin-top: 30px;
+            margin: 30px 0;
         }
         
         .product-item {
