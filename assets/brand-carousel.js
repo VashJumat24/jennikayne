@@ -21,6 +21,9 @@ class BrandCarousel extends HTMLElement {
 
   render() {
     const dItemsCount = 100 / parseInt(this.desktopItems)
+    const tItemsCount = 100 / parseInt(this.tabletItems)
+    const mItemsCount = 100 / parseInt(this.mobileItems)
+    
     this.shadowRoot.innerHTML = `
       <style>
         /* Carousel Styles */
@@ -58,12 +61,12 @@ class BrandCarousel extends HTMLElement {
         /* Responsiveness */
         @media (max-width: 1024px) {
           .carousel-item {
-            width: 33.33%;
+            width: ${tItemsCount}%;
           }
         }
         @media (max-width: 768px) {
           .carousel-item {
-            width: 50%;
+            width: ${mItemsCount}%;
           }
         }
 
