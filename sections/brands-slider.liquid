@@ -7,11 +7,10 @@
     <div class="carousel-wrapper">
       <brand-carousel>
         {% for block in section.blocks %}
-          {{ block.settings.collection_brand | json }}
+          
           <carousel-item 
             data-image="{{ block.settings.brand_image | img_url: 'medium' }}" 
             data-name="{{ block.settings.brand_name }}">
-            data-name="{{ collections[block.settings.collection_brand].title | handleize }}"
           </carousel-item>
         {% endfor %}
       </brand-carousel>
