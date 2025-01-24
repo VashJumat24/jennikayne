@@ -36,13 +36,15 @@
         "brand_8YXEWB": {
           "type": "brand",
           "settings": {
-            "brand_collection": "Default Brand"
+            "brand_image": "shopify://shop_images/23550440c4ccab05e4fc1ebd85e742cc.jpg",
+            "brand_collection": "Converse"
           }
         },
         "brand_eby948": {
           "type": "brand",
           "settings": {
-            "brand_collection": "Default Brand"
+            "brand_image": "shopify://shop_images/633e8800dbc6dc5704b35fd027e4eeaa.jpg",
+            "brand_collection": "Dr Martens"
           }
         },
         "brand_UCGfVL": {
