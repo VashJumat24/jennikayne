@@ -81,6 +81,12 @@ class BrandCarousel extends HTMLElement {
             background-color: #fff;
             overflow: hidden;
         }
+
+        .product-item a{
+          color:#333;
+          text-decoration:none;
+          
+        }
         
         .product-item:hover {
             transform: translateY(-5px);
