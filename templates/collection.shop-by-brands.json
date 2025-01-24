@@ -8,39 +8,58 @@
  * ------------------------------------------------------------
  */
 {
-    "sections": {
-      "brands_slider": {
-        "type": "brands-slider",
-        "settings": {
-          "desktop_items": 4,
-          "tablet_items": 3,
-          "mobile_items": 2
+  "sections": {
+    "brands_slider": {
+      "type": "brands-slider",
+      "blocks": {
+        "brand_NafgwD": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/desktop-jk-hp-hero-jan22_1944x_6be6a73f-0a23-48b7-9dcc-52dbd4837f64.jpg",
+            "brand_name": ""
+          }
+        },
+        "brand_dwDtgR": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/desktop-jkh-hp-hero-jan7_1944x_76282606-50a6-43a3-9820-5dbe5ca25321.jpg",
+            "brand_name": ""
+          }
         }
       },
-      "product_grid": {
-        "type": "main-collection-product-grid",
-        "settings": {
-          "products_per_page": 16,
-          "columns_desktop": 4,
-          "color_scheme": "scheme-1",
-          "image_ratio": "portrait",
-          "image_shape": "default",
-          "show_secondary_image": true,
-          "show_vendor": false,
-          "show_rating": false,
-          "quick_add": "none",
-          "enable_filtering": true,
-          "filter_type": "drawer",
-          "enable_sorting": true,
-          "columns_mobile": "1",
-          "padding_top": 0,
-          "padding_bottom": 40
-        }
+      "block_order": [
+        "brand_NafgwD",
+        "brand_dwDtgR"
+      ],
+      "settings": {
+        "desktop_items": 4,
+        "tablet_items": 3,
+        "mobile_items": 2
       }
     },
-    "order": [
-        "brands_slider", 
-        "product_grid"
-    ]
-  }
-  
+    "product_grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "drawer",
+        "enable_sorting": true,
+        "columns_mobile": "1",
+        "padding_top": 0,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "brands_slider",
+    "product_grid"
+  ]
+}
