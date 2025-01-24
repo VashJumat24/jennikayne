@@ -102,7 +102,7 @@ class BrandCarousel extends HTMLElement {
     this.totalItems = this.carouselContainer.children.length;
 
     this.updateCarousel();
-    this.startAutoplay();
+    //this.startAutoplay();
   }
 
   // Function to dynamically add carousel items from the blocks
