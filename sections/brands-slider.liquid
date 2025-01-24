@@ -1,14 +1,14 @@
 {% comment %}
-  Brands Slider Section
+  Brand Carousel Section
   Allows configuration for the number of items displayed on desktop, tablet, and mobile.
 {% endcomment %}
 
-<div class="brands-slider">
+<div class="brand-carousel">
   {% if section.blocks.size > 0 %}
-    <div class="brands-slider-container">
-      <div class="brands-slider-wrapper">
+    <div class="carousel-wrapper">
+      <div class="carousel-track">
         {% for block in section.blocks %}
-          <div class="brands-slider-item" data-collection="{{ block.settings.brand_collection | handleize }}">
+          <div class="carousel-item" data-collection="{{ block.settings.brand_collection | handleize }}">
             <a href="/collections/{{ block.settings.brand_collection | handleize }}" class="brand-link" aria-label="Shop by {{ block.settings.brand_collection }}">
               <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_collection }}">
               <div class="brand-overlay">
@@ -25,20 +25,22 @@
 </div>
 
 {% comment %}
-  Custom JavaScript for controlling slider items per view based on screen size
+  Custom JavaScript for controlling slider items per view based on screen size and autoplay functionality.
 {% endcomment %}
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const sliderWrapper = document.querySelector('.brands-slider-wrapper');
-    const items = document.querySelectorAll('.brands-slider-item');
+    const carouselTrack = document.querySelector('.carousel-track');
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    let currentIndex = 0;
 
     // Get the range values from settings
     const desktopItems = {{ section.settings.desktop_items }};
     const tabletItems = {{ section.settings.tablet_items }};
     const mobileItems = {{ section.settings.mobile_items }};
-    
+    const autoplayDelay = {{ section.settings.autoplay_delay }}; // Delay in milliseconds
+
     // Function to update the number of items displayed based on screen size
-    function updateSliderDisplay() {
+    function updateCarouselDisplay() {
       const screenWidth = window.innerWidth;
 
       // Decide how many items to show based on the screen width
@@ -50,27 +52,42 @@
         itemsToShow = mobileItems;
       }
 
-      // Show or hide items based on the number of items to show
-      items.forEach((item, index) => {
-        if (index < itemsToShow) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+      // Adjust the carousel display based on the number of items to show
+      const itemWidth = 100 / itemsToShow; // Calculate width based on number of items
+      carouselItems.forEach(item => {
+        item.style.width = `${itemWidth}%`; // Update width of each carousel item
       });
+
+      // Automatically adjust the carousel track width
+      carouselTrack.style.width = `${itemWidth * carouselItems.length}%`;
+    }
+
+    // Function to move the carousel to the next item (autoplay)
+    function moveToNextItem() {
+      currentIndex = (currentIndex + 1) % carouselItems.length;
+      updateCarouselPosition();
+    }
+
+    // Function to update the carousel position
+    function updateCarouselPosition() {
+      const offset = -100 * currentIndex; // Shift the carousel track
+      carouselTrack.style.transform = `translateX(${offset}%)`;
     }
 
     // Initialize display on page load
-    updateSliderDisplay();
+    updateCarouselDisplay();
+
+    // Start autoplay
+    setInterval(moveToNextItem, autoplayDelay);
 
     // Update display when window is resized
-    window.addEventListener('resize', updateSliderDisplay);
+    window.addEventListener('resize', updateCarouselDisplay);
   });
 </script>
 
 {% schema %}
 {
-  "name": "Brands Slider",
+  "name": "Brand Carousel",
   "settings": [
     {
       "type": "range",
@@ -98,6 +115,15 @@
       "max": 10,
       "step": 1,
       "default": 2
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay Delay (ms)",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "default": 3000
     }
   ],
   "blocks": [
@@ -121,7 +147,7 @@
   ],
   "presets": [
     {
-      "name": "Brands Slider",
+      "name": "Brand Carousel",
       "blocks": [
         {
           "type": "brand"
