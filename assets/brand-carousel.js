@@ -64,17 +64,68 @@ class BrandCarousel extends HTMLElement {
           }
         }
 
-        /* Product list styles */
+        /* Product List Styles */
         .product-list {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 20px;
-          margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
         }
+        
+        .product-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
         .product-item img {
-          width: 100%;
-          height: auto;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
         }
+        
+        .product-item img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Product Title */
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+        
+        .product-title:hover {
+            color: #007bff; /* Change color on hover */
+        }
+        
+        /* Product Price */
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ff5722;
+            margin: 5px 0;
+            transition: color 0.3s ease;
+        }
+        
+        .product-price:hover {
+            color: #ff7043; /* Change color on hover */
+        }
+
       </style>
 
       <div class="carousel-wrapper">
