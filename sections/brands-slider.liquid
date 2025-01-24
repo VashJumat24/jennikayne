@@ -5,16 +5,16 @@
 <div class="brand-carousel">
   {% if section.blocks.size > 0 %}
     <div class="carousel-wrapper">
-      <div class="carousel-container">
-        <brand-carousel>
+      <brand-carousel>
+        <div class="carousel-container">
           {% for block in section.blocks %}
             <div class="carousel-item" data-collection="{{ block.settings.brand_collection }}">
               <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_name }}" height="{{ block.settings.brand_image.height }}" width="{{ block.settings.brand_image.width }}">
               <div class="brand-overlay">{{ block.settings.brand_name }}</div>
             </div>
           {% endfor %}
-        </brand-carousel>
-      </div>
+        </div>
+      </brand-carousel>
     </div>
   {% else %}
     <p>No brands to display.</p>
