@@ -85,7 +85,6 @@ class BrandCarousel extends HTMLElement {
         .product-item a{
           color:#333;
           text-decoration:none;
-          
         }
         
         .product-item:hover {
@@ -107,7 +106,7 @@ class BrandCarousel extends HTMLElement {
         
         /* Product Title */
         .product-title {
-            font-size: 1.2rem;
+            font-size: 16px;;
             font-weight: bold;
             color: #333;
             margin: 10px 0;
@@ -121,7 +120,7 @@ class BrandCarousel extends HTMLElement {
         
         /* Product Price */
         .product-price {
-            font-size: 1.1rem;
+            font-size: 15px;
             font-weight: 600;
             color: #ff5722;
             margin: 5px 0;
