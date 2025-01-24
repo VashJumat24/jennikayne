@@ -23,7 +23,7 @@
     <p>No brands to show.</p>
   {% endif %}
 </div>
-
+{{ 'brand-carousel.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
 {% comment %}
   Custom JavaScript for controlling slider items per view based on screen size and autoplay functionality.
 {% endcomment %}
