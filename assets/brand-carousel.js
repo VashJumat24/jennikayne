@@ -1,14 +1,15 @@
 class BrandCarousel extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-    this.currentIndex = 0;
-    this.carouselInterval = null;
-    this.desktopItems = 4;  // Default items for desktop
-    this.tabletItems = 3;   // Default items for tablet
-    this.mobileItems = 2;   // Default items for mobile
-    this.totalItems = 0;
-    this.productsContainer = null; // To hold the products container
+    const _t = this;
+    _t.attachShadow({ mode: 'open' });
+    _t.currentIndex = 0;
+    _t.carouselInterval = null;
+    _t.desktopItems = _t.dataset.desktopItems;  // Default items for desktop
+    _t.tabletItems = _t.dataset.tabletItems;   // Default items for tablet
+    _t.mobileItems = _t.dataset.mobileItems;   // Default items for mobile
+    _t.totalItems = 0;
+    _t.productsContainer = null; // To hold the products container
   }
 
   connectedCallback() {
