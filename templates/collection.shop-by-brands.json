@@ -12,24 +12,52 @@
     "brands_slider": {
       "type": "brands-slider",
       "blocks": {
-        "brand_NafgwD": {
+        "brand_7m8cUq": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/desktop-jk-hp-hero-jan22_1944x_6be6a73f-0a23-48b7-9dcc-52dbd4837f64.jpg",
-            "brand_name": "Converse"
+            "brand_collection": "Default Brand"
           }
         },
-        "brand_dwDtgR": {
+        "brand_C8FLc6": {
           "type": "brand",
           "settings": {
-            "brand_image": "shopify://shop_images/desktop-jkh-hp-hero-jan7_1944x_76282606-50a6-43a3-9820-5dbe5ca25321.jpg",
-            "brand_name": "Dr Martens"
+            "brand_collection": "Default Brand"
+          }
+        },
+        "brand_8YXEWB": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "Default Brand"
+          }
+        },
+        "brand_eby948": {
+          "type": "brand",
+          "settings": {
+            "brand_collection": "Default Brand"
+          }
+        },
+        "brand_y4Rmjx": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/c1a864cb74de0e0fd0004872d6a00edd.jpg",
+            "brand_collection": "CONVERSE"
+          }
+        },
+        "brand_rdcPeY": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/8072c8b5718306d4be25aac21836ce16.jpg",
+            "brand_collection": "Default Brand"
           }
         }
       },
       "block_order": [
-        "brand_NafgwD",
-        "brand_dwDtgR"
+        "brand_7m8cUq",
+        "brand_C8FLc6",
+        "brand_8YXEWB",
+        "brand_eby948",
+        "brand_y4Rmjx",
+        "brand_rdcPeY"
       ],
       "settings": {
         "desktop_items": 4,
