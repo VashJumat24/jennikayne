@@ -11,10 +11,8 @@
 }
 
 .carousel-wrapper {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  transition: transform 0.3s ease;
+   overflow: hidden;
+   position: relative;
 }
 
 .carousel-track {
@@ -41,12 +39,14 @@
 
 .brand-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 15px;
-  border-radius: 5px;
 }
 
 .brand-overlay span {
