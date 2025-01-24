@@ -212,7 +212,6 @@ class BrandCarousel extends HTMLElement {
     const itemsToShow = this.getItemsToShow();
     
     const offset = -this.currentIndex * (100 / parseInt(itemsToShow));
-    console.log(offset);
     this.carouselContainer.style.transform = `translateX(${offset}%)`;
   }
 
