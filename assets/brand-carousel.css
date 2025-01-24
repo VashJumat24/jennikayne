@@ -1,7 +1,7 @@
 /* Basic styling for the brand carousel container */
 .brand-carousel {
   position: relative;
-  width: 25%;
+  width: 100%;
   overflow: hidden; /* Hide overflow to ensure smooth transitions */
 }
 
@@ -25,7 +25,6 @@
 .carousel-item {
   position: relative;
   flex: 0 0 auto; /* Prevent the items from growing/shrinking */
-  width: 100%; /* Full width per item */
   box-sizing: border-box;
   margin: 0 10px; /* Space between items */
 }
