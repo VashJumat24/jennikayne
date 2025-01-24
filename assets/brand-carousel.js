@@ -196,16 +196,21 @@ class BrandCarousel extends HTMLElement {
   }
 
   // Display products in the product list
+  // Display products in the product list
   displayProducts(products) {
     this.productsContainer.innerHTML = ''; // Clear the loading message
-
+  
     if (products.length > 0) {
       products.forEach(product => {
         const productItem = document.createElement('div');
         productItem.classList.add('product-item');
+  
+        // Check if the product has a featured image
+        const imageUrl = product.featured_image ? product.featured_image.src : 'path/to/default-image.jpg'; // Default image if none
+  
         productItem.innerHTML = `
           <a href="/products/${product.handle}">
-            <img src="${product.featured_image.src}" alt="${product.title}" />
+            <img src="${imageUrl}" alt="${product.title}" />
             <p class="product-title">${product.title}</p>
             <p class="product-price">${(product.price / 100).toFixed(2)} USD</p>
           </a>
@@ -216,6 +221,7 @@ class BrandCarousel extends HTMLElement {
       this.productsContainer.innerHTML = '<p>No products found for this brand.</p>';
     }
   }
+
 }
 
 // Define the custom element 'brand-carousel'
