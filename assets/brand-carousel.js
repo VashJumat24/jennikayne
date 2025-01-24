@@ -183,6 +183,11 @@ class BrandCarousel extends HTMLElement {
     // Clone first and last items for infinite loop effect
     const firstItem = this.carouselContainer.firstElementChild.cloneNode(true);
     const lastItem = this.carouselContainer.lastElementChild.cloneNode(true);
+
+     // Re-attach the event listener to cloned items
+    firstItem.addEventListener('click', () => this.fetchAndDisplayProducts(firstItem.dataset.handle));
+    lastItem.addEventListener('click', () => this.fetchAndDisplayProducts(lastItem.dataset.handle));
+      
     this.carouselContainer.appendChild(firstItem);
     this.carouselContainer.insertBefore(lastItem, this.carouselContainer.firstChild);
   }
