@@ -20,6 +20,7 @@ class BrandCarousel extends HTMLElement {
   }
 
   render() {
+
     this.shadowRoot.innerHTML = `
       <style>
         /* Carousel Styles */
@@ -209,6 +210,7 @@ class BrandCarousel extends HTMLElement {
   // Update the carousel to show the correct items
   updateCarousel() {
     const itemsToShow = this.getItemsToShow();
+    console.log(itemsToShow);
     const offset = -this.currentIndex * (100 / itemsToShow);
     this.carouselContainer.style.transform = `translateX(${offset}%)`;
   }
