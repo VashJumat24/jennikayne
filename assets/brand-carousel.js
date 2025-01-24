@@ -5,6 +5,7 @@ class BrandCarousel extends HTMLElement {
     _t.attachShadow({ mode: 'open' });
     _t.currentIndex = 0;
     _t.carouselInterval = null;
+    console.log(_t.dataset);
     _t.desktopItems = _t.dataset.desktopItems;  // Default items for desktop
     _t.tabletItems = _t.dataset.tabletItems;   // Default items for tablet
     _t.mobileItems = _t.dataset.mobileItems;   // Default items for mobile
