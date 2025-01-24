@@ -1,16 +1,15 @@
 {% comment %}
-  Brand Carousel Section
-  Allows configuration for the number of items displayed on desktop, tablet, and mobile.
+  Brand Carousel Section with Range Input to control the display and autoplay functionality.
 {% endcomment %}
 
 <div class="brand-carousel">
   {% if section.blocks.size > 0 %}
     <div class="carousel-wrapper">
-      <div class="carousel-track">
+      <div class="carousel-container">
         {% for block in section.blocks %}
           <div class="carousel-item" data-collection="{{ block.settings.brand_collection | handleize }}">
             <a href="/collections/{{ block.settings.brand_collection | handleize }}" class="brand-link" aria-label="Shop by {{ block.settings.brand_collection }}">
-              <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_collection }}" height="{{ block.settings.brand_image.height }}" width="100%">
+              <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_collection }}">
               <div class="brand-overlay">
                 <span>{{ block.settings.brand_collection }}</span>
               </div>
@@ -20,67 +19,93 @@
       </div>
     </div>
   {% else %}
-    <p>No brands to show.</p>
+    <p>No brands to display.</p>
   {% endif %}
 </div>
 
-{{ 'brand-carousel.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
-
 {% comment %}
-  Custom JavaScript for controlling slider items per view based on screen size and autoplay functionality.
+  Custom JavaScript for the Brand Carousel functionality.
 {% endcomment %}
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    const carouselWrapper = document.querySelector('.carousel-wrapper');
     const carouselContainer = document.querySelector('.carousel-container');
     const items = document.querySelectorAll('.carousel-item');
-    const itemCount = items.length;
-    
+    const totalItems = items.length;
+
     // Get the range values from settings
     const desktopItems = {{ section.settings.desktop_items }};
     const tabletItems = {{ section.settings.tablet_items }};
     const mobileItems = {{ section.settings.mobile_items }};
     
-    // Function to update the number of items displayed based on screen size
-    function updateCarouselDisplay() {
-      const screenWidth = window.innerWidth;
+    // Autoplay and Infinite Loop Setup
+    let currentIndex = 0;
+    let carouselInterval;
 
+    function startAutoplay() {
+      carouselInterval = setInterval(function() {
+        goToNextItem();
+      }, 3000); // Adjust the speed of autoplay (in ms)
+    }
+
+    function stopAutoplay() {
+      clearInterval(carouselInterval);
+    }
+
+    // Function to move to the next item
+    function goToNextItem() {
+      currentIndex = (currentIndex + 1) % totalItems;
+      updateCarousel();
+    }
+
+    // Function to move to the previous item
+    function goToPrevItem() {
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      updateCarousel();
+    }
+
+    // Function to update the carousel to the correct position
+    function updateCarousel() {
+      const itemsToShow = getItemsToShow();
+      const offset = -currentIndex * (100 / itemsToShow);
+      carouselContainer.style.transform = `translateX(${offset}%)`;
+    }
+
+    // Function to determine how many items to show based on the screen size
+    function getItemsToShow() {
+      const screenWidth = window.innerWidth;
       let itemsToShow = desktopItems;
+
       if (screenWidth <= 1024 && screenWidth > 768) {
         itemsToShow = tabletItems;
       } else if (screenWidth <= 768) {
         itemsToShow = mobileItems;
       }
 
-      // Calculate item width based on the number of items to show
-      const itemWidth = 100 / itemsToShow;
-      items.forEach(item => {
-        item.style.width = itemWidth + '%';
-      });
-
-      // Update carousel wrapper width to accommodate all items
-      carouselContainer.style.width = itemWidth * itemCount + '%';
+      return itemsToShow;
     }
 
-    // Autoplay and looping functionality
-    let currentIndex = 0;
-    const autoplayInterval = 3000; // 3 seconds for autoplay
+    // Event listener for item click (to update product listings and title)
+    carouselContainer.addEventListener('click', function(e) {
+      const clickedItem = e.target.closest('.carousel-item');
+      if (clickedItem) {
+        const brandCollection = clickedItem.getAttribute('data-collection');
+        const collectionTitle = `Shop ${brandCollection}`;
 
-    function startAutoplay() {
-      setInterval(function() {
-        currentIndex++;
-        if (currentIndex >= itemCount) {
-          currentIndex = 0; // Loop back to the start
-        }
-        carouselContainer.style.transform = `translateX(-${(100 / items.length) * currentIndex}%)`;
-      }, autoplayInterval);
-    }
+        // Update the page title dynamically (could be used to reflect on product listings)
+        document.title = collectionTitle;
 
-    // Initialize the carousel display and start autoplay
-    updateCarouselDisplay();
+        // Optionally, you could update the product listing dynamically by fetching the relevant data
+        window.location.href = `/collections/${brandCollection}`;
+      }
+    });
+
+    // Initialize the carousel on page load
+    updateCarousel();
     startAutoplay();
 
-    // Update display when window is resized
-    window.addEventListener('resize', updateCarouselDisplay);
+    // Update the carousel when the window is resized
+    window.addEventListener('resize', updateCarousel);
   });
 </script>
 
@@ -114,15 +139,6 @@
       "max": 10,
       "step": 1,
       "default": 2
-    },
-    {
-      "type": "range",
-      "id": "autoplay_delay",
-      "label": "Autoplay Delay (ms)",
-      "min": 1000,
-      "max": 5000,
-      "step": 500,
-      "default": 3000
     }
   ],
   "blocks": [
@@ -148,9 +164,6 @@
     {
       "name": "Brand Carousel",
       "blocks": [
-        {
-          "type": "brand"
-        },
         {
           "type": "brand"
         },
