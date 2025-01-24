@@ -1,93 +1,96 @@
-/* Carousel Container */
-.carousel-container {
-  display: flex;
-  transition: transform 0.5s ease-in-out; /* Smooth transition */
-  width: 100%;
-}
-/* Brand Carousel Styles */
+/* Basic styling for the brand carousel container */
 .brand-carousel {
   position: relative;
-  overflow: hidden;
-}
-
-.carousel-wrapper {
-   overflow: hidden;
-   position: relative;
-}
-
-.carousel-track {
-  display: flex;
   width: 100%;
-  transition: transform 0.3s ease;
+  overflow: hidden; /* Hide overflow to ensure smooth transitions */
 }
 
-.carousel-item {
+/* The wrapper that holds the entire carousel */
+.carousel-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
+  width: 100%;
 }
 
+/* The container that holds all carousel items */
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* Smooth transition for sliding */
+  width: 100%;
+}
+
+/* Individual carousel items */
+.carousel-item {
+  position: relative;
+  flex: 0 0 auto; /* Prevent the items from growing/shrinking */
+  width: 100%; /* Full width per item */
+  box-sizing: border-box;
+  margin: 0 10px; /* Space between items */
+}
+
+/* Styles for the brand image */
 .carousel-item img {
   width: 100%;
   height: auto;
-  object-fit: cover;
   display: block;
+  border-radius: 8px;
+  object-fit: cover; /* Ensures the image covers the space properly */
 }
 
+/* Overlay with brand name centered over the image */
 .brand-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.brand-overlay span {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
   color: white;
-  font-size: 18px;
-  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1.5em;
+  text-align: center;
 }
 
-/* Desktop */
-@media screen and (min-width: 1025px) {
-  .carousel-item {
-    width: calc(100% / 4);
-  }
-}
-
-/* Tablet */
-@media screen and (max-width: 1024px) and (min-width: 768px) {
-  .carousel-item {
-    width: calc(100% / 3);
-  }
-}
-
-/* Mobile */
-@media screen and (max-width: 767px) {
-  .carousel-item {
-    width: calc(100% / 2);
-  }
-}
-
-/* Styling for the carousel item link */
-.brand-link {
-  display: block;
-  text-decoration: none;
-}
-
-/* Optional: Add a hover effect for carousel items */
+/* Add hover effect to the brand item */
 .carousel-item:hover .brand-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.7); /* Darker overlay on hover */
 }
 
-.carousel-item:hover img {
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
+/* Media Queries for responsive behavior */
+@media (max-width: 1024px) {
+  /* Tablet - 3 items */
+  .carousel-item {
+    width: 33.33%; /* 3 items per row */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile - 2 items */
+  .carousel-item {
+    width: 50%; /* 2 items per row */
+  }
+}
+
+/* Controls for the carousel */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2rem;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.carousel-prev {
+  left: 10px;
+}
+
+.carousel-next {
+  right: 10px;
 }
