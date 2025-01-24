@@ -1,0 +1,23 @@
+{
+    "sections": {
+      "brands_slider": {
+        "type": "brands-slider",
+        "settings": {
+          "desktop_items": 4,
+          "tablet_items": 3,
+          "mobile_items": 2
+        }
+      },
+      "main_collection": {
+        "type": "collection-products",
+        "settings": {
+          "title": "Shop by Brands"
+        }
+      }
+    },
+    "order": [
+        "brands_slider", 
+        "main_collection"
+    ]
+  }
+  
