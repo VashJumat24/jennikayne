@@ -109,6 +109,7 @@ class BrandCarousel extends HTMLElement {
   addCarouselItems() {
     const blocks = this.querySelectorAll('carousel-item'); // Here we're using the custom tag
     blocks.forEach(block => {
+      console.log(block.dataset);
       const item = document.createElement('div');
       item.classList.add('carousel-item');
       item.dataset.handle = block.dataset.handle; // Storing the handle of the brand in the dataset
