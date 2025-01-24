@@ -70,6 +70,16 @@
       updateCarouselPosition();
     }
 
+    function startAutoplay() {
+      setInterval(function() {
+        currentIndex++;
+        if (currentIndex >= itemCount) {
+          currentIndex = 0; // Loop back to the start
+        }
+        carouselContainer.style.transform = `translateX(-${(100 / items.length) * currentIndex}%)`;
+      }, autoplayInterval);
+    }
+
     // Function to update the carousel position
     function updateCarouselPosition() {
       const offset = -100 * currentIndex; // Shift the carousel track
@@ -78,6 +88,7 @@
 
     // Initialize display on page load
     updateCarouselDisplay();
+    startAutoplay();
 
     // Start autoplay
     setInterval(moveToNextItem, autoplayDelay);
