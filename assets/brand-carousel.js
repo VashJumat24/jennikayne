@@ -111,7 +111,7 @@ class BrandCarousel extends HTMLElement {
     blocks.forEach(block => {
       const item = document.createElement('div');
       item.classList.add('carousel-item');
-      item.dataset.handle = block.dataset.name; // Storing the handle of the brand in the dataset
+      item.dataset.handle = block.dataset.handle; // Storing the handle of the brand in the dataset
       item.innerHTML = `
         <img src="${block.dataset.image}" alt="${block.dataset.name}">
         <div class="brand-overlay">${block.dataset.name}</div>
