@@ -200,13 +200,6 @@ class BrandCarousel extends HTMLElement {
       });
   }
 
-  updateCollectionPageTitle(brandHandle) {
-    // Fetch the brand name from the block or dataset
-    const selectedBrandName = this.querySelector(`[data-handle="${brandHandle}"]`)?.dataset.name || 'Shop by Brand';
-    // Update the document's title
-    document.querySelector('.brand-title').innerHTML  = `Shop ${selectedBrandName}`;
-  }
-
   // Function to update the page title and the h1 tag based on the selected brand
   updateCollectionPageTitle(brandHandle) {
       // Fetch the brand name from the block or dataset
@@ -220,6 +213,33 @@ class BrandCarousel extends HTMLElement {
       if (brandTitleElement) {
         brandTitleElement.textContent = `Shop ${selectedBrandName}`;
       }
+  }
+
+  // Display products in the product list
+  displayProducts(products) {
+    this.productsContainer.innerHTML = ''; // Clear the loading message
+  
+    if (products.length > 0) {
+      products.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+        console.log(product);
+
+        // Use featured_image if available, else fallback to the first image in the product.images array
+        const imageSrc = product.featured_image ? product.featured_image.src : (product.images && product.images[0] ? product.images[0].src : 'default-image.jpg');
+  
+        productItem.innerHTML = `
+          <a href="/products/${product.handle}">
+            <img src="${imageSrc}" alt="${product.title}" />
+            <p class="product-title">${product.title}</p>
+            <p class="product-price">${(product.price / 100).toFixed(2)} USD</p>
+          </a>
+        `;
+        this.productsContainer.appendChild(productItem);
+      });
+    } else {
+      this.productsContainer.innerHTML = '<p>No products found for this brand.</p>';
+    }
   }
 
 }
