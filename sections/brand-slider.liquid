@@ -19,13 +19,11 @@
     {% if section.blocks.size > 0 %}
       <div class="brands-slider-wrapper">
         {% for block in section.blocks %}
-          <div class="brand-slide">
-            <a href="/collections/{{ block.settings.brand_name | handleize }}" aria-label="{{ block.settings.brand_name }}">
-              <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_name }}">
-              <div class="brand-overlay">
-                <span>{{ block.settings.brand_name }}</span>
-              </div>
-            </a>
+          <div class="brand-item" data-brand="{{ block.settings.brand_name }}">
+            <img src="{{ block.settings.brand_image | img_url: 'medium' }}" alt="{{ block.settings.brand_name }}">
+            <div class="brand-overlay">
+              <span>{{ block.settings.brand_name }}</span>
+            </div>
           </div>
         {% endfor %}
       </div>
