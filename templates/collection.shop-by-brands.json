@@ -40,24 +40,24 @@
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/343bfbfc1a10a39a528a3d34367669c2.jpg",
-            "collection_brand": "",
-            "brand_name": "Default Brand"
+            "collection_brand": "asics-tiger",
+            "brand_name": "Asics Tiger"
           }
         },
         "brand_eby948": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/633e8800dbc6dc5704b35fd027e4eeaa.jpg",
-            "collection_brand": "",
-            "brand_name": "Default Brand"
+            "collection_brand": "dr-martens",
+            "brand_name": "Dr. Martens"
           }
         },
         "brand_UCGfVL": {
           "type": "brand",
           "settings": {
             "brand_image": "shopify://shop_images/9f190cba7218c819c81566bca6298c6a.jpg",
-            "collection_brand": "",
-            "brand_name": "Default Brand"
+            "collection_brand": "vans",
+            "brand_name": "Vans"
           }
         },
         "brand_GU8cRN": {
