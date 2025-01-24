@@ -211,7 +211,7 @@ class BrandCarousel extends HTMLElement {
   
         productItem.innerHTML = `
           <a href="/products/${product.handle}">
-            <img src="${imageUrl}" alt="${product.title}" />
+            <img src="${imageSrc}" alt="${product.title}" />
             <p class="product-title">${product.title}</p>
             <p class="product-price">${(product.price / 100).toFixed(2)} USD</p>
           </a>
