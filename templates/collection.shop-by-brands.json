@@ -43,18 +43,21 @@
         "brand_eby948": {
           "type": "brand",
           "settings": {
+            "brand_image": "shopify://shop_images/633e8800dbc6dc5704b35fd027e4eeaa.jpg",
             "brand_collection": "dr-martens"
           }
         },
         "brand_UCGfVL": {
           "type": "brand",
           "settings": {
+            "brand_image": "shopify://shop_images/9f190cba7218c819c81566bca6298c6a.jpg",
             "brand_collection": "vans"
           }
         },
         "brand_GU8cRN": {
           "type": "brand",
           "settings": {
+            "brand_image": "shopify://shop_images/fae150570c8ce6ddc4f787bf77b02c95.jpg",
             "brand_collection": "converse"
           }
         }
