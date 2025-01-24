@@ -1,0 +1,87 @@
+/* Brand Carousel Styles */
+.brand-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.brand-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.brand-overlay span {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+  .carousel-item {
+    width: calc(100% / 4);
+  }
+}
+
+/* Tablet */
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .carousel-item {
+    width: calc(100% / 3);
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .carousel-item {
+    width: calc(100% / 2);
+  }
+}
+
+/* Styling for the carousel item link */
+.brand-link {
+  display: block;
+  text-decoration: none;
+}
+
+/* Optional: Add a hover effect for carousel items */
+.carousel-item:hover .brand-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-item:hover img {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
