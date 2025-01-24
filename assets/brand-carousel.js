@@ -85,6 +85,9 @@ class BrandCarousel extends HTMLElement {
       <button class="carousel-prev">&#10094;</button>
       <button class="carousel-next">&#10095;</button>
       
+      <!-- Brand Title (to be dynamically updated) -->
+      <h1 class="brand-title">Shop by Brand</h1>
+      
       <div class="product-list">
         <!-- Products will be dynamically added here -->
       </div>
@@ -188,6 +191,8 @@ class BrandCarousel extends HTMLElement {
       .then(data => {
         const products = data.products;
         this.displayProducts(products);
+
+        this.updateCollectionPageTitle(brandHandle);
       })
       .catch(error => {
         console.error('Error fetching products:', error);
@@ -195,7 +200,13 @@ class BrandCarousel extends HTMLElement {
       });
   }
 
-  // Display products in the product list
+  updateCollectionPageTitle(brandHandle) {
+    // Fetch the brand name from the block or dataset
+    const selectedBrandName = this.querySelector(`[data-handle="${brandHandle}"]`)?.dataset.name || 'Shop by Brand';
+    // Update the document's title
+    document.querySelector('.brand-title').innerHTML  = `Shop ${selectedBrandName}`;
+  }
+
   // Display products in the product list
   displayProducts(products) {
     this.productsContainer.innerHTML = ''; // Clear the loading message
