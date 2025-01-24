@@ -27,6 +27,7 @@ class BrandCarousel extends HTMLElement {
         .carousel-container {
           display: flex;
           transition: transform 0.5s ease;
+          gap:1.5rem; 
         }
         .carousel-item {
           flex: 0 0 auto;
