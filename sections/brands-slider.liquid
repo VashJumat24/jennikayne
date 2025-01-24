@@ -125,8 +125,9 @@
     // Load brand data from Liquid blocks
     loadBrands() {
       // Assuming we have block settings from the Liquid schema
+      let brand = {};
       {% for block in section.blocks %}
-        const brand = {
+        brand = {
           name: '{{ collections[block.settings.brand_collection].title }}',
           image: "{{ block.settings.brand_collection.image | image_url: 'medium' }}",
           handle: "{{ block.settings.brand_collection.handle }}"
